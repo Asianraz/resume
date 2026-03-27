@@ -1,0 +1,593 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Rachana Chauhan — DevOps & Cloud Engineer</title>
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;600;700&family=DM+Sans:wght@300;400;500&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet"/>
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --ink: #0e0e0e;
+    --ink-muted: #4a4a4a;
+    --ink-soft: #888;
+    --paper: #f5f0e8;
+    --paper-dark: #ece6d8;
+    --accent: #c0392b;
+    --accent-light: #e8d5d3;
+    --gold: #b8973a;
+    --sidebar-bg: #111111;
+    --sidebar-text: #e8e2d4;
+    --sidebar-muted: #888880;
+    --sidebar-accent: #c0392b;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--paper);
+    color: var(--ink);
+    min-height: 100vh;
+    line-height: 1.6;
+  }
+
+  /* ── LAYOUT ── */
+  .page {
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    min-height: 100vh;
+    max-width: 1100px;
+    margin: 0 auto;
+    box-shadow: 0 0 80px rgba(0,0,0,0.18);
+  }
+
+  /* ── SIDEBAR ── */
+  .sidebar {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 3rem 2rem;
+    position: sticky;
+    top: 0;
+    height: 100vh;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 2.5rem;
+  }
+
+  .sidebar::-webkit-scrollbar { width: 4px; }
+  .sidebar::-webkit-scrollbar-track { background: transparent; }
+  .sidebar::-webkit-scrollbar-thumb { background: #333; border-radius: 4px; }
+
+  /* avatar */
+  .avatar-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 1.2rem;
+  }
+
+  .avatar {
+    width: 110px;
+    height: 110px;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #c0392b 0%, #6c1a14 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: 'Playfair Display', serif;
+    font-size: 2.4rem;
+    font-weight: 700;
+    color: #fff;
+    letter-spacing: 2px;
+    border: 3px solid #2a2a2a;
+    flex-shrink: 0;
+  }
+
+  .name {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.5rem;
+    font-weight: 700;
+    color: #fff;
+    line-height: 1.25;
+    letter-spacing: 0.01em;
+  }
+
+  .role-tag {
+    display: inline-block;
+    background: var(--sidebar-accent);
+    color: #fff;
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    padding: 4px 12px;
+    border-radius: 2px;
+    margin-top: 2px;
+  }
+
+  /* sidebar sections */
+  .s-section { display: flex; flex-direction: column; gap: 0.8rem; }
+
+  .s-label {
+    font-size: 0.6rem;
+    font-weight: 500;
+    letter-spacing: 0.18em;
+    text-transform: uppercase;
+    color: var(--sidebar-muted);
+    border-bottom: 1px solid #222;
+    padding-bottom: 6px;
+  }
+
+  /* contact */
+  .contact-item {
+    display: flex;
+    align-items: flex-start;
+    gap: 10px;
+    font-size: 0.82rem;
+    color: var(--sidebar-text);
+    text-decoration: none;
+    line-height: 1.4;
+    transition: color 0.2s;
+  }
+  .contact-item:hover { color: var(--sidebar-accent); }
+
+  .contact-icon {
+    width: 28px;
+    height: 28px;
+    background: #1e1e1e;
+    border-radius: 6px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+    font-size: 0.75rem;
+  }
+
+  /* skills */
+  .skill-list { display: flex; flex-direction: column; gap: 6px; }
+
+  .skill-item {
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: 8px;
+  }
+
+  .skill-name { font-size: 0.8rem; color: var(--sidebar-text); white-space: nowrap; }
+
+  .skill-bar {
+    flex: 1;
+    height: 3px;
+    background: #222;
+    border-radius: 2px;
+    overflow: hidden;
+  }
+
+  .skill-fill {
+    height: 100%;
+    background: var(--sidebar-accent);
+    border-radius: 2px;
+    animation: fillBar 1.2s ease forwards;
+    transform-origin: left;
+  }
+
+  @keyframes fillBar { from { width: 0; } }
+
+  /* education sidebar */
+  .edu-item { display: flex; flex-direction: column; gap: 2px; }
+  .edu-degree { font-size: 0.82rem; color: var(--sidebar-text); font-weight: 500; }
+  .edu-school { font-size: 0.75rem; color: var(--sidebar-muted); }
+  .edu-year { font-size: 0.7rem; color: var(--sidebar-accent); font-family: 'DM Mono', monospace; }
+
+  /* ── MAIN ── */
+  .main {
+    background: var(--paper);
+    padding: 3.5rem 3rem;
+    display: flex;
+    flex-direction: column;
+    gap: 3rem;
+  }
+
+  /* header strip */
+  .main-header {
+    border-bottom: 2px solid var(--ink);
+    padding-bottom: 1.5rem;
+    position: relative;
+  }
+
+  .main-header::after {
+    content: '';
+    position: absolute;
+    bottom: -5px;
+    left: 0;
+    width: 60px;
+    height: 3px;
+    background: var(--accent);
+  }
+
+  .main-title {
+    font-family: 'Playfair Display', serif;
+    font-size: 2.6rem;
+    font-weight: 700;
+    line-height: 1.1;
+    color: var(--ink);
+    letter-spacing: -0.02em;
+  }
+
+  .main-subtitle {
+    font-size: 0.9rem;
+    color: var(--ink-muted);
+    margin-top: 6px;
+    font-weight: 300;
+    letter-spacing: 0.04em;
+  }
+
+  /* section */
+  .section { display: flex; flex-direction: column; gap: 1.2rem; }
+
+  .section-heading {
+    font-family: 'Playfair Display', serif;
+    font-size: 1.1rem;
+    font-weight: 600;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+
+  .section-heading::after {
+    content: '';
+    flex: 1;
+    height: 1px;
+    background: var(--paper-dark);
+  }
+
+  .section-heading span.num {
+    font-family: 'DM Mono', monospace;
+    font-size: 0.65rem;
+    color: var(--accent);
+    letter-spacing: 0.1em;
+  }
+
+  /* objective */
+  .objective-box {
+    background: var(--sidebar-bg);
+    color: var(--sidebar-text);
+    padding: 1.5rem 1.8rem;
+    border-radius: 4px;
+    border-left: 4px solid var(--accent);
+    font-size: 0.9rem;
+    line-height: 1.75;
+    font-weight: 300;
+  }
+
+  /* project cards */
+  .projects-grid { display: flex; flex-direction: column; gap: 1rem; }
+
+  .project-card {
+    background: #fff;
+    border: 1px solid var(--paper-dark);
+    border-radius: 4px;
+    padding: 1.2rem 1.4rem;
+    display: flex;
+    gap: 1rem;
+    align-items: flex-start;
+    transition: box-shadow 0.25s, transform 0.25s;
+    cursor: default;
+  }
+
+  .project-card:hover {
+    box-shadow: 0 8px 30px rgba(0,0,0,0.1);
+    transform: translateY(-2px);
+  }
+
+  .project-num {
+    font-family: 'DM Mono', monospace;
+    font-size: 1.6rem;
+    font-weight: 500;
+    color: var(--paper-dark);
+    line-height: 1;
+    min-width: 40px;
+    flex-shrink: 0;
+    margin-top: 2px;
+  }
+
+  .project-content { display: flex; flex-direction: column; gap: 6px; }
+
+  .project-title {
+    font-size: 0.95rem;
+    font-weight: 500;
+    color: var(--ink);
+  }
+
+  .project-desc {
+    font-size: 0.83rem;
+    color: var(--ink-muted);
+    line-height: 1.65;
+  }
+
+  .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-top: 4px; }
+
+  .tag {
+    font-size: 0.68rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    padding: 3px 9px;
+    border-radius: 2px;
+    background: var(--accent-light);
+    color: var(--accent);
+    text-transform: uppercase;
+  }
+
+  /* interests */
+  .interests-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; }
+
+  .interest-card {
+    background: #fff;
+    border: 1px solid var(--paper-dark);
+    border-radius: 4px;
+    padding: 1.1rem 1.2rem;
+    display: flex;
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .interest-title {
+    font-size: 0.85rem;
+    font-weight: 500;
+    color: var(--ink);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .interest-title .dot {
+    width: 8px; height: 8px;
+    background: var(--accent);
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  .interest-desc {
+    font-size: 0.78rem;
+    color: var(--ink-muted);
+    line-height: 1.6;
+  }
+
+  /* footer strip */
+  .footer-strip {
+    border-top: 1px solid var(--paper-dark);
+    padding-top: 1rem;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    font-size: 0.72rem;
+    color: var(--ink-soft);
+    font-family: 'DM Mono', monospace;
+  }
+
+  /* ── ANIMATIONS ── */
+  .fade-up {
+    opacity: 0;
+    transform: translateY(20px);
+    animation: fadeUp 0.6s ease forwards;
+  }
+
+  @keyframes fadeUp {
+    to { opacity: 1; transform: translateY(0); }
+  }
+
+  .fade-up:nth-child(1) { animation-delay: 0.05s; }
+  .fade-up:nth-child(2) { animation-delay: 0.15s; }
+  .fade-up:nth-child(3) { animation-delay: 0.25s; }
+  .fade-up:nth-child(4) { animation-delay: 0.35s; }
+  .fade-up:nth-child(5) { animation-delay: 0.45s; }
+
+  /* ── RESPONSIVE ── */
+  @media (max-width: 768px) {
+    .page { grid-template-columns: 1fr; }
+    .sidebar { position: static; height: auto; }
+    .main { padding: 2rem 1.5rem; }
+    .main-title { font-size: 2rem; }
+    .interests-grid { grid-template-columns: 1fr; }
+  }
+
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; max-width: 100%; }
+    .project-card:hover { transform: none; box-shadow: none; }
+  }
+</style>
+</head>
+<body>
+
+<div class="page">
+
+  <!-- ── SIDEBAR ── -->
+  <aside class="sidebar">
+
+    <div class="avatar-wrap fade-up">
+      <div class="avatar">RC</div>
+      <div>
+        <div class="name">Rachana<br/>Chauhan</div>
+        <span class="role-tag">DevOps &amp; Cloud</span>
+      </div>
+    </div>
+
+    <div class="s-section fade-up">
+      <div class="s-label">Contact</div>
+      <a class="contact-item" href="tel:9313360380">
+        <span class="contact-icon">📞</span>
+        9313360380
+      </a>
+      <a class="contact-item" href="mailto:rachanachauhan480@mail.com">
+        <span class="contact-icon">✉</span>
+        rachanachauhan480@mail.com
+      </a>
+      <a class="contact-item" href="https://www.linkedin.com/in/rachana-chauhan" target="_blank">
+        <span class="contact-icon">in</span>
+        linkedin.com/in/rachana-chauhan
+      </a>
+    </div>
+
+    <div class="s-section fade-up">
+      <div class="s-label">Technical Skills</div>
+      <div class="skill-list">
+        <div class="skill-item">
+          <span class="skill-name">Python</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:85%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">AWS / Azure</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:80%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">HTML / CSS / JS</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:88%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">React</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:70%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Git &amp; GitHub</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:82%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">SQL</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:72%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">Django</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:55%"></div></div>
+        </div>
+        <div class="skill-item">
+          <span class="skill-name">APIs</span>
+          <div class="skill-bar"><div class="skill-fill" style="width:78%"></div></div>
+        </div>
+      </div>
+    </div>
+
+    <div class="s-section fade-up">
+      <div class="s-label">Education</div>
+      <div class="edu-item">
+        <span class="edu-degree">SSC</span>
+        <span class="edu-school">S.M. English School</span>
+        <span class="edu-year">May 2021</span>
+      </div>
+      <div class="edu-item" style="margin-top:10px">
+        <span class="edu-degree">HSC</span>
+        <span class="edu-school">Mansa International School</span>
+        <span class="edu-year">May 2023</span>
+      </div>
+      <div class="edu-item" style="margin-top:10px">
+        <span class="edu-degree">B.Sc (Pursuing)</span>
+        <span class="edu-school">Gujarat University</span>
+        <span class="edu-year">June 2026</span>
+      </div>
+    </div>
+
+  </aside>
+
+  <!-- ── MAIN ── -->
+  <main class="main">
+
+    <header class="main-header fade-up">
+      <h1 class="main-title">Rachana<br/>Chauhan</h1>
+      <p class="main-subtitle">Aspiring DevOps Engineer &nbsp;·&nbsp; Cloud &amp; Infrastructure &nbsp;·&nbsp; Open Source Contributor</p>
+    </header>
+
+    <section class="section fade-up">
+      <h2 class="section-heading"><span class="num">01</span> Objective</h2>
+      <div class="objective-box">
+        Aspiring DevOps Engineer with hands-on experience in cloud deployment, Linux environments, containerization, and CI/CD automation. Seeking to contribute to system reliability, infrastructure automation, and scalable cloud solutions — while continuously enhancing DevOps and SRE expertise.
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2 class="section-heading"><span class="num">02</span> Projects</h2>
+      <div class="projects-grid">
+
+        <div class="project-card">
+          <div class="project-num">01</div>
+          <div class="project-content">
+            <div class="project-title">Responsive Web Development</div>
+            <div class="project-desc">Developed and deployed 2+ fully responsive websites optimized for mobile, tablet, and desktop. Implemented modern UI/UX principles ensuring fast load times, intuitive navigation, and cross-browser compatibility.</div>
+            <div class="project-tags">
+              <span class="tag">HTML</span><span class="tag">CSS</span><span class="tag">JS</span><span class="tag">UI/UX</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">02</div>
+          <div class="project-content">
+            <div class="project-title">Python Algorithm Projects</div>
+            <div class="project-desc">Developed multiple Python projects focused on logical problem-solving, algorithmic thinking, and clean code practices — demonstrating strong fundamentals in control structures, data handling, and modular coding.</div>
+            <div class="project-tags">
+              <span class="tag">Python</span><span class="tag">Algorithms</span><span class="tag">DSA</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">03</div>
+          <div class="project-content">
+            <div class="project-title">AI Voice Agent — ElevenLabs</div>
+            <div class="project-desc">Built an interactive AI voice agent using the ElevenLabs API and a unique agent ID to generate natural, human-like speech responses. Integrated API endpoints to enable dynamic, conversational interactions.</div>
+            <div class="project-tags">
+              <span class="tag">ElevenLabs API</span><span class="tag">Python</span><span class="tag">AI</span>
+            </div>
+          </div>
+        </div>
+
+        <div class="project-card">
+          <div class="project-num">04</div>
+          <div class="project-content">
+            <div class="project-title">SaaS AI Platform — IBM Cloud</div>
+            <div class="project-desc">Designed and developed a SaaS-based platform integrated with an intelligent AI agent using Next.js for the frontend and IBM Cloud for backend services and scalable infrastructure. Clean responsive UI with HTML, CSS &amp; Bootstrap.</div>
+            <div class="project-tags">
+              <span class="tag">Next.js</span><span class="tag">IBM Cloud</span><span class="tag">Bootstrap</span><span class="tag">SaaS</span>
+            </div>
+          </div>
+        </div>
+
+      </div>
+    </section>
+
+    <section class="section fade-up">
+      <h2 class="section-heading"><span class="num">03</span> Interests</h2>
+      <div class="interests-grid">
+        <div class="interest-card">
+          <div class="interest-title"><span class="dot"></span>Hackathons</div>
+          <div class="interest-desc">Active participant in hackathons — recently completed the IBM Watson Orchestrate Hackathon (Nov 23). Passionate about applying creativity and technical skills under pressure.</div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-title"><span class="dot"></span>Open Source</div>
+          <div class="interest-desc">Contributing to open-source projects by improving code quality, fixing issues, enhancing documentation, and adding features. Active collaborator with developers worldwide.</div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-title"><span class="dot"></span>Cloud Technologies</div>
+          <div class="interest-desc">Continuously building knowledge in AWS, Azure, and modern IT tools — with a focus on DevOps practices, infrastructure automation, and cloud-native architectures.</div>
+        </div>
+        <div class="interest-card">
+          <div class="interest-title"><span class="dot"></span>Investigative Research</div>
+          <div class="interest-desc">Passionate about exploring criminal and mysterious case studies, researching investigative methods, and understanding behavioral patterns and analytical thinking.</div>
+        </div>
+      </div>
+    </section>
+
+    <div class="footer-strip fade-up">
+      <span>Rachana Chauhan &nbsp;·&nbsp; Resume 2026</span>
+      <span>rachanachauhan480@mail.com</span>
+    </div>
+
+  </main>
+</div>
+
+</body>
+</html>
